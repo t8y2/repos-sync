@@ -41,15 +41,31 @@ class SourceRepoManager:
 
     @classmethod
     def set_remote_url(cls, repo_dir: str, remote_url: str) -> None:
-        """设置远程仓库 URL."""
+        """设置远程仓库 URL，如果 URL 已存在则不重复添加。"""
         if os.path.exists(repo_dir):
             try:
-                subprocess.run(
-                    ["git", "remote", "set-url", "--add", "origin", remote_url],
+                # 获取当前仓库的所有远程 URL
+                remotes = subprocess.run(
+                    ["git", "remote", "-v"],
                     check=True,
-                    cwd=repo_dir
-                )
-                print(f"成功为 {repo_dir} 添加远程仓库 {remote_url}。")
+                    cwd=repo_dir,
+                    text=True,
+                    stdout=subprocess.PIPE
+                ).stdout.splitlines()
+
+                # 检查远程 URL 是否已经存在
+                remote_exists = any(remote_url in remote for remote in remotes)
+
+                if not remote_exists:
+                    # 如果远程 URL 不存在，则添加
+                    subprocess.run(
+                        ["git", "remote", "set-url", "--add", "origin", remote_url],
+                        check=True,
+                        cwd=repo_dir
+                    )
+                    print(f"成功为 {repo_dir} 添加远程仓库 {remote_url}。")
+                else:
+                    print(f"远程仓库 {remote_url} 已存在，无需重复添加。")
             except subprocess.CalledProcessError as e:
                 print(f"设置远程仓库失败: {e}")
         else:
