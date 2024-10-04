@@ -1,0 +1,8 @@
+asgiref==3.7.2
+python-dotenv==1.0.1
+loguru==0.7.2
+starlette==0.37.2
+uvicorn==0.24.0.post1
+asyncmy==0.2.9
+pytz~=2020.5
+fire~=0.6.0
