@@ -9,10 +9,10 @@ class SourceRepoManager:
     def __init__(cls, config_file: str):
         """初始化 RepoManager，加载配置文件."""
         cls.config = cls.load_repo_list(config_file)
-        cls.source_repo_prefix = cls.config['source_repo_prefix']
+        cls.source_url_prefix = f"{cls.config['source']['plat_url']}/{cls.config['source']['username']}"
+        cls.dest_url_prefix = f"{cls.config['dest']['plat_url']}/{cls.config['dest']['username']}"
         cls.repo_list = cls.config['repo_list']
         cls.base_dir = cls.config['base_dir']
-
         # 确保存放仓库的目录存在
         os.makedirs(cls.base_dir, exist_ok=True)
 
@@ -23,11 +23,9 @@ class SourceRepoManager:
             return yaml.safe_load(file)
 
     @classmethod
-    def sync_repo(cls, repo_name: str, branch: str) -> None:
+    def sync_repo(cls, repo_name: str, repo_dir: str, branch: str) -> None:
         """克隆或拉取指定的仓库."""
-        repo_url = f"{cls.source_repo_prefix}{repo_name}"
-        repo_dir = os.path.join(cls.base_dir, repo_name.split("/")[-1])  # 仓库目录
-
+        repo_url = f"{cls.source_url_prefix}/{repo_name}"
         if os.path.exists(repo_dir):
             # 如果仓库已经存在，则拉取最新代码
             print(f"本地检测到仓库 {repo_name} ,正在拉取最新代码...")
@@ -86,13 +84,14 @@ class SourceRepoManager:
     def run(cls) -> None:
         """同步每个仓库."""
         for repo in cls.repo_list:
-            repo_name = repo['name']
+            source_repo_name = repo['source_repo_name']
             branch = repo['branch']
-            remote_url = f"{cls.source_repo_prefix}{repo_name}"  # 远程仓库 URL
-            repo_dir = str(os.path.join(cls.base_dir, repo_name.split("/")[-1]))  # 仓库目录
-            cls.sync_repo(repo_name, branch)  # 拉取或克隆仓库
-            cls.set_remote_url(repo_dir, remote_url)  # 设置远程仓库 URL（假设 remote_url 是从配置中获取）
-            # cls.push_code(repo_dir, branch)  # 推送代码
+            dest_repo_name = repo['dest_repo_name']
+            dest_remote_url = f"{cls.dest_url_prefix}/{dest_repo_name}"
+            repo_dir = str(os.path.join(cls.base_dir, source_repo_name))  # 仓库目录
+            cls.sync_repo(source_repo_name, repo_dir, branch)  # 拉取或克隆仓库
+            cls.set_remote_url(repo_dir, dest_remote_url)  # 设置远程仓库 URL（假设 remote_url 是从配置中获取）
+            cls.push_code(repo_dir, branch)  # 推送代码
 
 
 if __name__ == "__main__":
