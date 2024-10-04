@@ -52,7 +52,8 @@ After this, the program will run automatically!
 
 ## ✔️ Screenshots
 
-Screenshots will be added later.
+[![](https://pic.imgdb.cn/item/67001ec4d29ded1a8c33b237.png)](https://pic.imgdb.cn/item/67001ec4d29ded1a8c33b237.png)
+
 
 ## 💕 Appreciate the Star
 

@@ -52,7 +52,8 @@ python main.py
 
 ## ✔️ 运行截图
 
-后面补充
+[![](https://pic.imgdb.cn/item/67001ec4d29ded1a8c33b237.png)](https://pic.imgdb.cn/item/67001ec4d29ded1a8c33b237.png)
+
 
 ## 💕 感谢 Star
 
