@@ -1,13 +1,15 @@
 source:
-  plat_url: https://git.xxxx.com
+  plat_url: https://git.xxx.com
   username: skylertong
 dest:
   plat_url: https://github.com
   username: t8y2
 base_dir: D:\\testrepos
 repo_list:
-  - source_repo_name: datacomp-crawl
-    dest_repo_name: datacomp-crawl
+  - source_repo_name: repo-1
+    dest_repo_name: repo-1
     branch: main
-
+    private: false
+  - source_repo_name: repo-2
+    branch: main
 
