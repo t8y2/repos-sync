@@ -1,6 +1,13 @@
-repo_prefix: https://git.transcengram.com/
+source:
+  plat_url: https://git.xxxx.com
+  username: skylertong
+dest:
+  plat_url: https://github.com
+  username: t8y2
+base_dir: D:\\testrepos
 repo_list:
-  - name: skylertong/datacomp-crawl
+  - source_repo_name: datacomp-crawl
+    dest_repo_name: datacomp-crawl
     branch: main
-  - name: skylertong/go-downloader
-    branch: main
+
+
