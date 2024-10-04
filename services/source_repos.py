@@ -100,8 +100,12 @@ class SourceRepoManager:
 
     @classmethod
     def run(cls) -> None:
+        repo_nums = len(cls.repo_list)
+        print(f"检测到 {repo_nums} 个仓库， 开始同步")
+
         """同步每个仓库."""
-        for repo in cls.repo_list:
+        for i, repo in enumerate(cls.repo_list, start=1):
+            print(f"##################### 正在处理第 {i} 个仓库: {repo['source_repo_name']} #####################")
             source_repo_name = repo['source_repo_name']
             branch = repo['branch']
             is_repo_private = repo['private'] if 'private' in repo else True
@@ -112,3 +116,4 @@ class SourceRepoManager:
             cls.set_remote_url(repo_dir, dest_remote_url)  # 设置远程仓库 URL（假设 remote_url 是从配置中获取）
             githubManager.create_repo(cls.config['dest']['username'], dest_repo_name, is_repo_private)
             cls.push_code(repo_dir, branch)  # 推送代码
+            print(f"第 {i} 个仓库处理完毕。\n\n")
