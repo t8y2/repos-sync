@@ -58,4 +58,14 @@ Screenshots will be added later.
 
 It's not easy for the project to get stars. If you like this project, please support a star! This is the only motivation for the author to maintain it continuously.
 
+## 🔨 Future Development Plans
+- [ ] Support more source and target platforms like Gitee, GitLab, etc.
+- [ ] Provide a frontend interface with additional basic repository management features
+- [ ] Source repository list scanning
+- [ ] Batch delete repositories functionality
+- [ ] Batch rename repositories functionality
+
+Feel free to submit Issues and PRs, and thank you for your support!
+
+
 
