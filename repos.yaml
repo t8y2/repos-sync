@@ -1,0 +1,6 @@
+repo_prefix: https://git.transcengram.com/
+repo_list:
+  - name: skylertong/datacomp-crawl
+    branch: main
+  - name: skylertong/go-downloader
+    branch: main
