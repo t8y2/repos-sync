@@ -96,8 +96,3 @@ class SourceRepoManager:
             cls.set_remote_url(repo_dir, dest_remote_url)  # 设置远程仓库 URL（假设 remote_url 是从配置中获取）
             githubManager.create_repo(cls.config['dest']['username'], dest_repo_name, is_repo_private)
             cls.push_code(repo_dir, branch)  # 推送代码
-
-
-if __name__ == "__main__":
-    manager = SourceRepoManager("../repos.yaml")
-    manager.run()
