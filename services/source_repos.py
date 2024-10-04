@@ -1,7 +1,9 @@
 import yaml
 import subprocess
 import os
-from typing import List, Dict, Any
+from typing import Dict, Any
+
+from services.github_repos import githubManager
 
 
 class SourceRepoManager:
@@ -86,11 +88,13 @@ class SourceRepoManager:
         for repo in cls.repo_list:
             source_repo_name = repo['source_repo_name']
             branch = repo['branch']
-            dest_repo_name = repo['dest_repo_name']
+            is_repo_private = repo['private'] if 'private' in repo else True
+            dest_repo_name = repo['dest_repo_name'] if 'dest_repo_name' in repo else source_repo_name  # 默认使用源仓库名
             dest_remote_url = f"{cls.dest_url_prefix}/{dest_repo_name}"
             repo_dir = str(os.path.join(cls.base_dir, source_repo_name))  # 仓库目录
             cls.sync_repo(source_repo_name, repo_dir, branch)  # 拉取或克隆仓库
             cls.set_remote_url(repo_dir, dest_remote_url)  # 设置远程仓库 URL（假设 remote_url 是从配置中获取）
+            githubManager.create_repo(cls.config['dest']['username'], dest_repo_name, is_repo_private)
             cls.push_code(repo_dir, branch)  # 推送代码
 
 
