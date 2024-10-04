@@ -8,6 +8,7 @@
 **ReposSync is a tool for batch repository synchronization with the following features:**
 
 - Lightweight: Requires only a GitHub token and a repository list for easy usage.
+- Native experience: Preserve all commit records, commit times, and authors.
 - Compatibility: Supports syncing multiple source repositories to GitHub with simplified configuration and scheduling.
 - Batch Sync: Enables the synchronization of multiple source repositories to target repositories.
 
