@@ -21,7 +21,7 @@ class SourceRepoManager:
     @staticmethod
     def load_repo_list(filename: str) -> Dict[str, Any]:
         """读取 YAML 文件并返回内容."""
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf-8') as file:
             return yaml.safe_load(file)
 
     @classmethod
