@@ -1,7 +1,4 @@
-import os
-
 import requests
-from dotenv import load_dotenv
 
 from core.config import settings
 
@@ -9,7 +6,6 @@ from core.config import settings
 class GitHubRepoManager:
     @classmethod
     def __init__(cls):
-
         cls.token = settings['token']['github']
         cls.headers = {
             'Accept': 'application/vnd.github+json',
