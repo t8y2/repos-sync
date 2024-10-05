@@ -2,7 +2,7 @@ from typing import Dict, Any
 
 import yaml
 
-config_file = '../repos.yaml'
+config_file = '../config.yaml'
 
 
 def load_repo_list(filename: str) -> Dict[str, Any]:
