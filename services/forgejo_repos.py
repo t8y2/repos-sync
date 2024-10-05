@@ -19,17 +19,10 @@ class ForgejoManager:
     def list_repos(cls) -> list:
         result = requests.get(cls.list_repos_api, headers=cls.headers)
         if result.status_code == 200:
-            return result.json()
+            return [repo['name'] for repo in result.json()]
         else:
             print(result.text)
             return []
 
 
 forgejo = ForgejoManager()
-
-if __name__ == '__main__':
-    repos = forgejo.list_repos()
-    for repo in repos:
-        print(repo['full_name'])
-        print(repo['clone_url'])
-
