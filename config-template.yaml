@@ -1,9 +1,9 @@
 source:
-  plat_url: https://git.xxx.com # 源端仓库地址
+  plat_host: https://git.xxxx.com # 源端仓库地址
   username: skylertong # 源端仓库用户名
 
 dest:
-  plat_url: https://github.com # 目的端仓库地址
+  plat_host: https://github.com # 目的端仓库地址
   username: t8y2 # 目的端仓库用户名
 
 base_dir: D:\\testrepos # 本地仓库存放路径
@@ -17,6 +17,6 @@ repo_list:
     branch: main # 分支
 
 token:
-  github: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  forgejo: a1070xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  github: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  forgejo: 94994xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
