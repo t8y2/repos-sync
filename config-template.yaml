@@ -1,0 +1,22 @@
+source:
+  plat_url: https://git.xxx.com # 源端仓库地址
+  username: skylertong # 源端仓库用户名
+
+dest:
+  plat_url: https://github.com # 目的端仓库地址
+  username: t8y2 # 目的端仓库用户名
+
+base_dir: D:\\testrepos # 本地仓库存放路径
+
+repo_list:
+  - source_repo_name: repo-1 # 第1个源端仓库名称
+    dest_repo_name: repo-1 # 第2个目的端仓库名称（可选字段，不填默认和源仓库名称一致）
+    branch: main # 分支
+    private: false # 是否为私有仓库（可选，默认为true即隐私仓库）
+  - source_repo_name: repo-2 # 第2个源端仓库名称
+    branch: main # 分支
+
+token:
+  github: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  forgejo: a1070xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
