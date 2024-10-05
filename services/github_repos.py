@@ -3,15 +3,14 @@ import os
 import requests
 from dotenv import load_dotenv
 
+from core.config import settings
+
 
 class GitHubRepoManager:
     @classmethod
     def __init__(cls):
-        # 加载 .env 文件
-        load_dotenv()
-        # 获取环境变量值
 
-        cls.token = os.getenv('GITHUB_TOKEN')
+        cls.token = settings['token']['github']
         cls.headers = {
             'Accept': 'application/vnd.github+json',
             'Authorization': f'Bearer {cls.token}',
