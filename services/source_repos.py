@@ -9,8 +9,8 @@ from services.github_repos import githubManager
 class SourceRepoManager:
     def __init__(self) -> None:
         """初始化 RepoManager，加载配置文件."""
-        self.source_url_prefix = f"{settings['source']['plat_host']}/{settings['source']['username']}"
-        self.dest_url_prefix = f"{settings['dest']['plat_host']}/{settings['dest']['username']}"
+        self.source_host = settings['source']['plat_host']
+        self.dest_host = settings['dest']['plat_host']
         self.repo_list = settings['repo_list']
         self.base_dir = settings['base_dir']
         os.makedirs(self.base_dir, exist_ok=True)
@@ -40,9 +40,9 @@ class SourceRepoManager:
             return selected_source_repos_names, default_visibility
         return [], "public"
 
-    def sync_repo(self, repo_name: str, repo_dir: str, branch: str = "main") -> None:
+    def sync_repo(self, repo_full_name: str, repo_dir: str, branch: str = "main") -> None:
         """克隆或拉取指定的仓库."""
-        repo_url = f"{self.source_url_prefix}/{repo_name}"
+        repo_url = f"{self.source_host}/{repo_full_name}"
         self.run_git_command(repo_dir, ["git", "pull", "origin", branch], "拉取最新代码", repo_url)
 
     def set_remote_url(self, repo_dir: str, remote_url: str) -> None:
@@ -82,23 +82,37 @@ class SourceRepoManager:
     def run(self) -> None:
         """主运行函数"""
         platform = self.select_platform()
-        repos_names, visibility = self.select_repos(platform)
+        repos_full_names, visibility = self.select_repos(platform)
 
-        if repos_names:
-            for i, repo_name in enumerate(repos_names, start=1):
-                self.process_repo(repo_name, visibility, i)
+        if repos_full_names:
+            for i, repo_name in enumerate(repos_full_names, start=1):
+                self.process_auto_repo(repo_name, visibility, i)
             return
+        else:
+            # 读取配置文件批量处理 repo_list
+            for i, repo in enumerate(self.repo_list, start=1):
+                self.process_manual_repo(repo['source_repo_name'], repo.get('private', True), i)
 
-        # 批量处理 repo_list
-        for i, repo in enumerate(self.repo_list, start=1):
-            self.process_repo(repo['source_repo_name'], repo.get('private', True), i)
-
-    def process_repo(self, repo_name: str, visibility: str, index: int) -> None:
+    def process_manual_repo(self, repo_name: str, visibility: str, index: int) -> None:
         """处理每个仓库"""
         print(f"##################### 正在处理第 {index} 个仓库: {repo_name} #####################")
         repo_dir = os.path.join(self.base_dir, repo_name)
-        dest_remote_url = f"{self.dest_url_prefix}/{repo_name}"
-        self.sync_repo(repo_name, repo_dir)
+        source_repo_full_name = f"{settings['source']['username']}/{repo_name}"
+        dest_repo_full_name = f"{settings['dest']['username']}/{repo_name}"
+        dest_remote_url = f"{self.dest_host}/{dest_repo_full_name}"
+        self.sync_repo(source_repo_full_name, repo_dir)
+        self.set_remote_url(repo_dir, dest_remote_url)
+        githubManager.create_repo(settings['dest']['username'], repo_name, visibility)
+        self.push_code(repo_dir)
+        print(f"第 {index} 个仓库处理完毕。\n\n")
+
+    def process_auto_repo(self, repo_full_name: str, visibility: str, index: int) -> None:
+        """处理每个仓库"""
+        repo_name = repo_full_name.split('/')[-1]
+        print(f"##################### 正在处理第 {index} 个仓库: {repo_name} #####################")
+        repo_dir = os.path.join(self.base_dir, repo_name)
+        dest_remote_url = f"{self.dest_host}/{settings['dest']['username']}/{repo_name}"
+        self.sync_repo(repo_full_name, repo_dir)
         self.set_remote_url(repo_dir, dest_remote_url)
         githubManager.create_repo(settings['dest']['username'], repo_name, visibility)
         self.push_code(repo_dir)

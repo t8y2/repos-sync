@@ -19,7 +19,7 @@ class ForgejoManager:
     def list_repos(cls) -> list:
         result = requests.get(cls.list_repos_api, headers=cls.headers)
         if result.status_code == 200:
-            return [repo['name'] for repo in result.json()]
+            return [repo['full_name'] for repo in result.json()]
         else:
             print(result.text)
             return []
