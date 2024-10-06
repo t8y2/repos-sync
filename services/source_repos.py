@@ -21,8 +21,6 @@ class SourceRepoManager:
         # 确保存放仓库的目录存在
         os.makedirs(cls.base_dir, exist_ok=True)
 
-        selected_source_repos_names, default_visibility = cls.select_steps()
-
     @classmethod
     def select_steps(cls):
         platform = inquirer.prompt([inquirer.List(
