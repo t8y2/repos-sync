@@ -62,7 +62,7 @@ class GitHubRepoManager:
             return []
 
     @classmethod
-    def delete_repo(cls) -> None:
+    def del_repos(cls) -> None:
         """删除指定的 GitHub 仓库"""
         repos_fullname_list = cls.list_repos()
         while True:
@@ -90,7 +90,4 @@ class GitHubRepoManager:
                 break
 
 
-githubManager = GitHubRepoManager()
-
-if __name__ == '__main__':
-    githubManager.delete_repo()
+github = GitHubRepoManager()
