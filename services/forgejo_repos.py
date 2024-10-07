@@ -41,7 +41,7 @@ class ForgejoManager:
                 default=True,
             )])['confirm_del']
             if not confirm_del:
-                print("取消删除, 返回仓库列表")
+                continue
             else:
                 for repo in del_repos:
                     resp = requests.delete(cls.del_repos_api + repo, headers=cls.headers)
