@@ -40,10 +40,13 @@ class SourceRepoManager:
             return selected_source_repos_names, default_visibility
         return [], "public"
 
-    def sync_repo(self, repo_full_name: str, repo_dir: str, branch: str = "main") -> None:
+    def sync_repo(self, repo_full_name: str, repo_dir: str, branch: str = None) -> None:
         """克隆或拉取指定的仓库."""
         repo_url = f"{self.source_host}/{repo_full_name}"
-        self.run_git_command(repo_dir, ["git", "pull", "origin", branch], "拉取最新代码", repo_url)
+        if branch:
+            self.run_git_command(repo_dir, ["git", "pull", "origin", branch], "拉取最新代码", repo_url)
+        else:
+            self.run_git_command(repo_dir, ["git", "pull"], "拉取最新代码", repo_url)
 
     def set_remote_url(self, repo_dir: str, remote_url: str) -> None:
         """设置远程仓库 URL."""
@@ -54,10 +57,14 @@ class SourceRepoManager:
             self.run_git_command(repo_dir, ["git", "remote", "set-url", "--add", "origin", remote_url], "添加远程仓库",
                                  remote_url)
 
-    def push_code(self, repo_dir: str, branch: str = "main") -> None:
+    def push_code(self, repo_dir: str, branch: str = None) -> None:
         """推送代码到远程仓库."""
-        self.run_git_command(repo_dir, ["git", "checkout", branch], f"切换到分支 {branch}")
-        self.run_git_command(repo_dir, ["git", "push", "-f", "origin", branch], f"推送代码到分支 {branch}")
+        if branch:
+            self.run_git_command(repo_dir, ["git", "checkout", branch], f"切换到分支 {branch}")
+            self.run_git_command(repo_dir, ["git", "push", "-f", "origin", branch], f"推送代码到分支 {branch}")
+        else:
+            self.run_git_command(repo_dir, ["git", "push", "-f"], "推送代码到默认分支")
+            print("推送完成。")
 
     def run_git_command(self, repo_dir: str, command: list, action: str, repo_url: str = None,
                         capture_output: bool = False) -> str:
