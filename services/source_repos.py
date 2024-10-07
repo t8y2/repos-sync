@@ -124,3 +124,6 @@ class SourceRepoManager:
         githubManager.create_repo(settings['dest']['username'], repo_name, visibility)
         self.push_code(repo_dir)
         print(f"第 {index} 个仓库处理完毕。\n\n")
+
+
+source_manager = SourceRepoManager()

@@ -53,6 +53,3 @@ class ForgejoManager:
 
 
 forgejo = ForgejoManager()
-
-if __name__ == '__main__':
-    forgejo.del_repos()
