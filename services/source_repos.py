@@ -3,7 +3,7 @@ import os
 import inquirer
 from core.config import settings
 from services.forgejo_repos import forgejo
-from services.github_repos import githubManager
+from services.github_repos import github
 
 
 class SourceRepoManager:
