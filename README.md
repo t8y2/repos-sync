@@ -11,7 +11,7 @@
 - Native experience: Preserve all commit records, commit times, and authors.
 - Compatibility: Supports syncing multiple source repositories to GitHub with simplified configuration and scheduling.
 - Batch Sync: Enables the synchronization of multiple source repositories to target repositories.
-
+- Automatic Scanning: Automatically obtain the list of source repositories and synchronize it to the source repository.
 ## 🚀 Quick Start
 
 ```sh
