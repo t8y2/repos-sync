@@ -27,6 +27,7 @@ pip install -r requirements.txt
 4. 选择所需的权限：`repo`，生成一个令牌并保存好它。
 5. 编辑 `.env` 文件，配置你的Github Token
 6. 编辑 `repos.yaml` 文件
+7. 如需使用批量删除功能，只需配置`token`和上面的`source`中的`plat_host`即可
 
 ```yaml
 source:
@@ -43,6 +44,9 @@ repo_list:
     private: false # 是否为私有仓库（可选，默认为true即隐私仓库）
   - source_repo_name: repo-2 # 第2个源端仓库名称
     branch: main # 分支
+token: # 如需使用批量删除功能，仅需配置 token和上面的source中的plat_host即可
+  github: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  forgejo: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ### 运行ReposSync

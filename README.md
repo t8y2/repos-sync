@@ -26,6 +26,7 @@ pip install -r requirements.txt
 4. Select the necessary permissions: repo, then generate a token and save it.
 5. Edit the .env file to configure your GitHub token.
 6. Edit the repos.yaml file to set up your repositories.
+7. To use the batch deletion feature, simply configure the token and the plat_host in the source section above.
 
 ```yaml
 source:
@@ -42,6 +43,9 @@ repo_list:
     private: false # Is it a private repository? (optional, default is true, meaning private)
   - source_repo_name: repo-2 # Second source repository name
     branch: main # Branch
+token: # To use the batch deletion feature, simply configure the token and the plat_host in the source section above
+  github: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  forgejo: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ### Running ReposSync

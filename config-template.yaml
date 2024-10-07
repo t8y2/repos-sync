@@ -16,7 +16,7 @@ repo_list:
   - source_repo_name: repo-2 # 第2个源端仓库名称
     branch: main # 分支
 
-token:
-  github: ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  forgejo: 94994xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+token: # 如需使用批量删除功能，仅需配置 token和上面的source中的plat_host即可
+  github: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  forgejo: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
